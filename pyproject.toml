@@ -13,6 +13,12 @@ sqlalchemy = "^2.0.9"
 alembic = "^1.10.3"
 python-dotenv = "^1.0.0"
 psycopg2 = "^2.9.6"
+python-jose = {extras = ["cryptography"], version = "^3.3.0"}
+passlib = {extras = ["bcrypt"], version = "^1.7.4"}
+asyncpg = "^0.27.0"
+fastapi-cache2 = {extras = ["redis"], version = "^0.2.1"}
+celery = "^5.2.7"
+flower = "^1.2.0"
 
 
 [build-system]
