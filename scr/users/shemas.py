@@ -8,3 +8,11 @@ class UserSchema(BaseModel):
     hashed_password: str
     class Config:
         orm_mode = True
+
+
+class RegisterUser(BaseModel):
+    username: str
+    email: EmailStr
+    password: str
+    class Config:
+        orm_mode = True

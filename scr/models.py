@@ -10,12 +10,6 @@ import uuid
 
 Base = declarative_base()
 
-users_relatives = Table("users_relatives", Base.metadata,
-    Column('user_id', UUID(as_uuid=True), ForeignKey("user.id")),
-    Column('relatives_id', UUID(as_uuid=True), ForeignKey("relatives.id"))
-
-)
-
 class User(Base):
     __tablename__ = "user"
 
@@ -40,4 +34,10 @@ class Relatives(Base):
     death_data = Column(Date(), nullable=True)
     sity = Column(String(128), nullable=False)
     photo = Column(String(128), nullable=True)
-    user = relationship("User", secondary=users_relatives, backref="relatives")
+
+
+class Link(Base):
+    __tablename__ = "link"
+
+    user_id = Column(UUID(as_uuid=True), ForeignKey('user.id'), primary_key = True)
+    relatives_id = Column(UUID(as_uuid=True), ForeignKey('relatives.id'), primary_key = True)
