@@ -14,7 +14,7 @@ from .shemas import UserSchema, RegisterUser
 
 from auth.hasher import veify_password, get_password_hash
 from auth.router import get_current_user
-from tasks.register_active.tasks import send_email_register
+from tasks.tasks import send_email_register
 
 
 user_router = APIRouter(prefix="/user", tags=['User'])
@@ -28,8 +28,11 @@ async def registration(user: RegisterUser, session: AsyncSession = Depends(get_a
         username = user.username,
         email = user.email,
         hashed_password = user.password)
-    await session.execute(stmt)
-    await session.commit()
+    try:
+        await session.execute(stmt)
+        await session.commit()
+    except:
+        return {"11": 11}
     send_email_register.delay(user.password, user.email, user.username)
     return HTTPException(
         status_code= status.HTTP_201_CREATED,
@@ -50,3 +53,13 @@ async def delete_user(
 @user_router.get('/user/me')
 async def jwt_user(user: Annotated[User, Depends(get_current_user)]):
     return user
+
+
+@user_router.get('/user/my_relatives')
+async def my_relatives(
+    user: Annotated[User, Depends(get_current_user)],
+    session: AsyncSession = Depends(get_async_session)
+):
+    stmt = select(Relatives).join(Link, user.id == Link.user_id)
+    r = await session.execute(stmt)
+    return r.scalars().all()
