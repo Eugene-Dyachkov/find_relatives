@@ -13,11 +13,9 @@ from engine import get_async_session
 from models import Relatives, Link, User
 from .shemas import CreateRelatives
 from tasks.tasks import send_notification
-relatives_router = APIRouter(prefix="/relatives", tags=['Relatives'])
 
-@relatives_router.get("/hello")
-async def hello():
-    return {"Hello": "relatives"}
+
+relatives_router = APIRouter(prefix="/relatives", tags=['Relatives'])
 
 
 @relatives_router.post('/create', name='Create relatives')

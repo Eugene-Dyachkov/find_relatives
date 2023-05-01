@@ -21,7 +21,7 @@ user_router = APIRouter(prefix="/user", tags=['User'])
 
 
 # registration
-@user_router.post('/user/registration', name='Registration')
+@user_router.post('/user/registration/', name='Registration')
 async def registration(user: RegisterUser, session: AsyncSession = Depends(get_async_session)):
     user.password = get_password_hash(user.password)
     stmt = insert(User).values(
