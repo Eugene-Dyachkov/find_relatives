@@ -32,7 +32,9 @@ async def registration(user: RegisterUser, session: AsyncSession = Depends(get_a
         await session.execute(stmt)
         await session.commit()
     except:
-        return {"11": 11}
+        return HTTPException(
+            status_code= status.HTTP_204_NO_CONTENT,
+            detail="There is already a user with this email")
     send_email_register.delay(user.password, user.email, user.username)
     return HTTPException(
         status_code= status.HTTP_201_CREATED,

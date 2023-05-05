@@ -1,61 +1,35 @@
-const requestURL = 'http://127.0.0.1:8000/pages/hello'
+import sendRequest from './sendRequest.js';
 
-// function sendRequest(method, url, body = null) {
-//   const headers = {
-//     'Content-Type': 'application/json'
-//   }
 
-//   return fetch(url, {
-//     method: method,
-//     body: JSON.stringify(body),
-//     headers: headers
-//   }).then(response => {
-//     if (response.ok) {
-//       return response.json()
-//     }
+const requestURL = 'http://127.0.0.1:8000/user/user/registration/'
 
-//     return response.json().then(error => {
-//       const e = new Error('Что-то пошло не так')
-//       e.data = error
-//       throw e
-//     })
-//   })
-// }
 
 // sendRequest('GET', requestURL)
 //   .then(data => console.log(data))
 //   .catch(err => console.log(err))
 
-// const body = {
-//     username: "string",
-//     email: "userbbb@example.com",
-//     password: "string"
-// }
-
-// sendRequest('POST', requestURL, body)
-//   .then(data => console.log(data))
-//   .catch(err => console.log(err))
-
-
-// function sendRequest(method, url, body = null) {
-//   const headers = {
-//     'Content-Type': 'application/json'
-//   }
-// }
-
-
-
-function register(method, url, body = null) {
-  return(url).then(response => {
-    return response.text()
-  })
+function validateEmail(inputText) {
+  var mailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  if (inputText.value.match(mailFormat)) {
+    alert("Valid address!");
+    return true;
+  } else {
+    alert("Invalid address!");
+    return false;
+  }
 }
 
-register('GET', requestURL)
-  .then(data=>console.log(data))
-  .catch(err=>console.log(err))
-
-
-const body = {
-
+document.querySelector("#register").onclick = function(){
+  const body = {
+    username: document.querySelector('#username').value,
+    email: document.querySelector('#email').value,
+    password: document.querySelector('#password').value
+  }
+  if (validateEmail(email) == true) {
+    sendRequest('POST', requestURL, body)
+      .then(data => alert(data['detail']))
+      .catch(err => alert(err['detail']))
+  } else {
+    alert("Invalid address!!!!");
+  }
 }
