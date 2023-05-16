@@ -94,7 +94,7 @@ async def auth_user(email: str, password: str, session):
     return user
 
 @auth_router.get("/token/{email}/{password}")
-async def login_for_access_token(email: str, password: str, session: AsyncSession = Depends(get_async_session)):
+async def login_for_access_token_API(email: str, password: str, session: AsyncSession = Depends(get_async_session)):
     user = await auth_user(email, password, session)
     if not user:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
@@ -103,7 +103,7 @@ async def login_for_access_token(email: str, password: str, session: AsyncSessio
     access_token = create_access_token(data={"sub": str(user.id)}, expires_delta= access_token_expires)
     return {"access_token": access_token, "token_type": "bearer"}
 
-@auth_router.post("/token/")
+@auth_router.post("/token")
 async def login_for_access_token(from_data: OAuth2PasswordRequestForm = Depends(), session: AsyncSession = Depends(get_async_session)):
     user = await auth_user(from_data.username, from_data.password, session)
     if not user:
