@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 9daf0ba6d882
+Revision ID: 88f0be03b241
 Revises: 
-Create Date: 2023-04-28 00:13:12.331969
+Create Date: 2023-05-18 18:36:33.310547
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '9daf0ba6d882'
+revision = '88f0be03b241'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -26,7 +26,6 @@ def upgrade() -> None:
     sa.Column('birth_data', sa.Date(), nullable=True),
     sa.Column('death_data', sa.Date(), nullable=True),
     sa.Column('sity', sa.String(length=128), nullable=False),
-    sa.Column('photo', sa.String(length=128), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_index(op.f('ix_relatives_id'), 'relatives', ['id'], unique=False)
@@ -36,9 +35,6 @@ def upgrade() -> None:
     sa.Column('email', sa.String(length=64), nullable=False),
     sa.Column('hashed_password', sa.String(length=128), nullable=False),
     sa.Column('active', sa.Boolean(), nullable=False),
-    sa.Column('telegram', sa.String(length=128), nullable=True),
-    sa.Column('vk', sa.String(length=128), nullable=True),
-    sa.Column('method', sa.String(length=128), nullable=True),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email')
     )

@@ -1,14 +1,21 @@
 
 
-from sqlalchemy import Column, String, Integer, ForeignKey, Boolean, Date, Table
+from sqlalchemy import Column, String, ForeignKey, Boolean, Date, Table
 from sqlalchemy.dialects.postgresql import UUID
-from sqlalchemy.orm import relationship, declarative_base
+from sqlalchemy.orm import relationship, declarative_base, Mapped
 
 import uuid
 
 
 
 Base = declarative_base()
+
+class Link(Base):
+    __tablename__ = "link"
+
+    user_id = Column(UUID(as_uuid=True), ForeignKey('user.id'), primary_key = True)
+    relatives_id = Column(UUID(as_uuid=True), ForeignKey('relatives.id'), primary_key = True)
+
 
 class User(Base):
     __tablename__ = "user"
@@ -18,9 +25,7 @@ class User(Base):
     email = Column(String(64), unique=True, nullable=False)
     hashed_password = Column(String(128), nullable=False, index=True)
     active = Column(Boolean(), nullable=False, default=False)
-    telegram = Column(String(128), nullable=True)
-    vk = Column(String(128), nullable=True)
-    method = Column(String(128), nullable=True)
+    relatives = relationship("Relatives", secondary=Link, backref='user')
 
 
 class Relatives(Base):
@@ -33,11 +38,4 @@ class Relatives(Base):
     birth_data = Column(Date(), nullable=True)
     death_data = Column(Date(), nullable=True)
     sity = Column(String(128), nullable=False)
-    photo = Column(String(128), nullable=True)
-
-
-class Link(Base):
-    __tablename__ = "link"
-
-    user_id = Column(UUID(as_uuid=True), ForeignKey('user.id'), primary_key = True)
-    relatives_id = Column(UUID(as_uuid=True), ForeignKey('relatives.id'), primary_key = True)
+    users = relationship("User", secondary=Link, backref='relatives')

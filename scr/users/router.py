@@ -6,7 +6,6 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from sqlalchemy import delete, insert
-from sqlalchemy.exc import IntegrityError
 
 from models import User, Relatives, Link
 from engine import get_async_session
