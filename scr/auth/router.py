@@ -43,11 +43,11 @@ async def get_current_user(
     user = await get_user_by_jwt(uuid, session)
     if user is None:
         raise credentials_exception
-    if user.active is False:
-        raise HTTPException(
-        status_code=status.HTTP_403_FORBIDDEN,
-        detail="Account not active",
-    )
+    # if user.active is False:
+    #     raise HTTPException(
+    #     status_code=status.HTTP_403_FORBIDDEN,
+    #     detail="Account not active",
+    # )
     return user
 
 

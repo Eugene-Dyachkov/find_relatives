@@ -16,7 +16,7 @@ def get_email_template_register(password, email, username):
     msg = EmailMessage()
     msg['Subject'] = 'Find relatives'
     msg['From'] = SMTP_USER
-    msg['To'] = SMTP_USER
+    msg['To'] = email
 
     msg.set_content(
         '<div>'

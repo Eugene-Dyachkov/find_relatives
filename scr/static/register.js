@@ -4,10 +4,6 @@ import sendRequest from './sendRequest.js';
 const requestURL = 'http://127.0.0.1:8000/user/user/registration/'
 
 
-// sendRequest('GET', requestURL)
-//   .then(data => console.log(data))
-//   .catch(err => console.log(err))
-
 function validateEmail(inputText) {
   var mailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   if (inputText.value.match(mailFormat)) {

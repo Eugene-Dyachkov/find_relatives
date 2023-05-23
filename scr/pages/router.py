@@ -20,6 +20,10 @@ def get_base(request: Request):
 async def get_base(request: Request):
     return templates.TemplateResponse("main_window.html", {"request": request})
 
+@pages_router.get("/new_relative", name='NewRalative')
+def get_base(request: Request):
+    return templates.TemplateResponse("new_relative.html", {"request": request})
+
 @pages_router.get("/email_register", name='EmailRegister')
 def get_base(request: Request):
     return templates.TemplateResponse("auth_email.html", {"request": request})

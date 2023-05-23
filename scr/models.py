@@ -12,9 +12,9 @@ Base = declarative_base()
 
 class Link(Base):
     __tablename__ = "link"
-
-    user_id = Column(UUID(as_uuid=True), ForeignKey('user.id'), primary_key = True)
-    relatives_id = Column(UUID(as_uuid=True), ForeignKey('relatives.id'), primary_key = True)
+    id = Column(UUID(as_uuid=True), primary_key=True, index=True, default=uuid.uuid4)
+    user_id = Column(UUID(as_uuid=True), ForeignKey('user.id'))
+    relatives_id = Column(UUID(as_uuid=True), ForeignKey('relatives.id'))
 
 
 class User(Base):
@@ -25,7 +25,7 @@ class User(Base):
     email = Column(String(64), unique=True, nullable=False)
     hashed_password = Column(String(128), nullable=False, index=True)
     active = Column(Boolean(), nullable=False, default=False)
-    relatives = relationship("Relatives", secondary=Link, backref='user')
+    relatives = relationship("Relatives", secondary="link", back_populates='users')
 
 
 class Relatives(Base):
@@ -38,4 +38,4 @@ class Relatives(Base):
     birth_data = Column(Date(), nullable=True)
     death_data = Column(Date(), nullable=True)
     sity = Column(String(128), nullable=False)
-    users = relationship("User", secondary=Link, backref='relatives')
+    users = relationship("User", secondary="link", back_populates='relatives')

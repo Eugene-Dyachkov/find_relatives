@@ -18,6 +18,7 @@ document.querySelector("#login").onclick = function(){
     sendRequest('GET', requestURL)
         .then(data => {
             localStorage.setItem("token",data['access_token']);
+            window.location.href = 'http://127.0.0.1:8000/pages/home';
         })
         .catch(err => console.log(err))
   } else {
