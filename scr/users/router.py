@@ -6,7 +6,6 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from sqlalchemy import delete, insert
-from sqlalchemy.exc import IntegrityError
 
 from models import User, Relatives, Link
 from engine import get_async_session
@@ -62,6 +61,15 @@ async def my_relatives(
     user: Annotated[User, Depends(get_current_user)],
     session: AsyncSession = Depends(get_async_session)
 ):
-    stmt = select(Relatives).join(Link, user.id == Link.user_id)
+    stmt = select(Relatives).join(Link).filter(user.id == Link.user_id)
+    r = await session.execute(stmt)
+    return r.scalars().all()
+
+
+@user_router.get('/user/ggg')
+async def my_relatives(
+    session: AsyncSession = Depends(get_async_session)
+):
+    stmt = select(User)
     r = await session.execute(stmt)
     return r.scalars().all()

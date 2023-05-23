@@ -3,6 +3,7 @@
 {% block head %}
 <link href="{{ url_for('static', path='/main.css') }}" rel="stylesheet">
 <link rel="shortscut icon" href="{{ url_for('static', path='/icon.ico') }}" type="image/x-icon">
+<script type="module" src="{{ url_for('static', path='/main.js') }}"></script>
 {% endblock %}
 
 {% block title %}
@@ -12,6 +13,8 @@ Main
 {% block content %}
 <div class="box">
     <div class="container">
+
+
         <div class="topNav">
             <input type="submit" class="submit" value="Home">
             <input type="submit" class="submit" value="Account">
@@ -20,24 +23,11 @@ Main
             <span>Relatives</span>
         </div>
         <div class="content">
-            <a id="relative" href="google.com">
-                fffffffffffffffffffffffffffff <br> ffffffffffffffffffff
-            </a>
-            <div id="relative">
-                fff
-            </div>
-            <div id="relative">
-                fff
-            </div>
-            <div id="relative">
-                fff
-            </div>
+            <div class="app"></div>
         </div>
         </div>
     </div>
 </div>
-
-
 
 
 

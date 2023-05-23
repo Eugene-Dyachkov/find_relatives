@@ -51,15 +51,16 @@ span{
 
 .content{
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 100%;
 }
 
-#relative{
-    padding: 7px;
-    margin: 2px;
-    background-color: #0a06e85e;
+.card{
+    padding: 1vh;
+    margin: 1vh;
+    background-color: #ffffff37;
     border-radius: 20px;
-    border: 1px solid #0906e8;
+    border: 1px solid #ffffff;
+    color: rgb(38, 10, 224);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

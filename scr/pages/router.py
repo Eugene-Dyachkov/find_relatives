@@ -1,11 +1,6 @@
-from typing import Annotated
-
 from fastapi import APIRouter, Request, Depends
 from fastapi.templating import Jinja2Templates
 
-
-from models import User, Relatives, Link
-from auth.router import get_current_user
 
 from users.router import registration, my_relatives
 
@@ -21,9 +16,13 @@ def get_base(request: Request):
 def get_base(request: Request):
     return templates.TemplateResponse("register.html", {"request": request})
 
-@pages_router.get("/main", name='Main')
-def get_base(request: Request):
+@pages_router.get("/home", name='Main')
+async def get_base(request: Request):
     return templates.TemplateResponse("main_window.html", {"request": request})
+
+@pages_router.get("/new_relative", name='NewRalative')
+def get_base(request: Request):
+    return templates.TemplateResponse("new_relative.html", {"request": request})
 
 @pages_router.get("/email_register", name='EmailRegister')
 def get_base(request: Request):
